@@ -4,9 +4,11 @@ var quizQuestions = document.querySelector('.quizQuestions');
 var timerEl = document.querySelector('#timer');
 var possibleAnswer = document.querySelector('#possibleAnswer');
 var endQuiz = document.querySelector('#endQuiz');
+var finalScore = document.querySelector('#finalScore');
 var initialsInputEl = document.querySelector('#initials');
+var submitButtonEl = document.querySelector('#submit');
 var timer = 0;
-var MAXTIME = 75;
+var seconds = 75;
 var newTimer = null;
 var currentQuestion = 0;
 var currentAnswer = '';
@@ -44,7 +46,7 @@ function questionComponent({ question, answers }) {
 }
 // time argument is in milliseconds. 1 = 1000 milliseconds.
 function Timer(time) {
-  timer = MAXTIME
+  timer = seconds
   return setInterval(function () {
     timerEl.textContent = timer--
   }, time)
@@ -62,21 +64,21 @@ var questions = [
   },
 
   { // index 1
-    question: "q2",
-    answers: ["a", "b", "c", "d"],
-    correct: "c"
+    question: "What is my favorite band",
+    answers: ["Aerosmith", "Justin Bieber", "Black Sabbath", "Etta James"],
+    correct: "Etta James"
   },
 
   { // index 2
-    question: "q3",
-    answers: ["a", "b", "c", "d"],
-    correct: "a"
+    question: "Do I like the beach? Select the BEST answer",
+    answers: ["yes", "probably", "without a shadow of a doubt", "no"],
+    correct: "without a shadow of a doubt"
   },
 
   { // index 3
-    question: "q4",
-    answers: ["a", "b", "c", "d"],
-    correct: "b"
+    question: "What kind of pet do I have",
+    answers: ["bird", "cow", "cat", "the best dog in the world"],
+    correct: "the best dog in the world"
   }
 ];
 
@@ -104,6 +106,9 @@ function endQuizFN() {
   quizQuestions.style.display = "none";
   possibleAnswer.style.display = "none";
   endQuiz.style.display = "inline";
+
+  
+  
 }
 
 
@@ -115,18 +120,29 @@ function nextQuestion() {
     endQuizFN();
   }
 
+clearInterval(timer);
+  finalScore.textContent = seconds
 
 }
-
-function handleSubmit(event){
+// SUBMIT TO LOCAL STORAGE FUNCTION
+function handleSubmit(event) {
   event.preventDefault();
-var userInitials= initialsInputEl.value
-localStorage.setItem(userInitials, 'initials');
+  
+  var finalScore = finalScore.textContent;
+  var initialsInputEl = document.querySelector('#initials');
 
 
-}
+localStorage.setItem("finalScore", JSON.stringify(finalScore));
+localStorage.setItem('initials', JSON.stringify(initialsInputEl));
+seconds = 75;
+initialsInputEl = '';
+
+};
+
+
+
 
 
 
 startButton.addEventListener("click", beginQuiz);
-submitButton.addEventListener("submit", handleSubmit);
+submitButtonEl.addEventListener("submit", handleSubmit);
