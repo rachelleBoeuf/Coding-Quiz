@@ -4,7 +4,7 @@ var quizQuestions = document.querySelector('.quizQuestions');
 var timerEl = document.querySelector('#timer');
 var possibleAnswer = document.querySelector('#possibleAnswer');
 var endQuiz = document.querySelector('#endQuiz');
-var initialsInput = document.querySelector('#initials');
+var initialsInputEl = document.querySelector('#initials');
 var timer = 0;
 var MAXTIME = 75;
 var newTimer = null;
@@ -89,7 +89,7 @@ function beginQuiz() {
     newTimer = Timer(1000)
   }
   quizQuestions.style.display = "block";
-  possibleAnswer.textContent= '';
+  possibleAnswer.textContent = '';
   console.log("is my function working");
   startButton.setAttribute("class", "button hidden");
   console.log(questions.length);
@@ -116,9 +116,17 @@ function nextQuestion() {
   }
 
 
+}
+
+function handleSubmit(event){
+  event.preventDefault();
+var userInitials= initialsInputEl.value
+localStorage.setItem(userInitials, 'initials');
 
 
 }
 
 
+
 startButton.addEventListener("click", beginQuiz);
+submitButton.addEventListener("submit", handleSubmit);
