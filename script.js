@@ -58,7 +58,7 @@ var questions = [
 
   // Objects use keys, ex: questions[0].question === "q1"
   { // index 0
-    question: "What is the abbrivation for JavaScript?",
+    question: "What is the abbreviation for JavaScript?",
     answers: ["J", "JS", "JST", "Java"],
     correct: "JS"
   },
